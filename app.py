@@ -29,7 +29,7 @@ def login():
             # 認証に成功したら、ユーザー情報をセッションに保存するなどの処理を行う
             # 例: session['user_id'] = user['localId']
             return redirect(url_for('home'))
-        except auth.AuthError as e:
+        except exceptions.FirebaseError as e:
             # 認証に失敗した場合の処理
             flash('ログインに失敗しました。メールアドレスまたはパスワードが正しくありません。')
             return redirect(url_for('login'))
