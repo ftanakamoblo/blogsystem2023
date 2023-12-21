@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>トピック入力</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="topic-input-container">
+        <h1>トピックとキーワードの入力</h1>
+        <form action="{{ url_for('generate_article') }}" method="post">
+            <div class="form-group">
+                <label for="topic">トピック:</label>
+                <input type="text" id="topic" name="topic" required>
+            </div>
+            <div class="form-group">
+                <label for="keywords">キーワード (カンマ区切り):</label>
+                <input type="text" id="keywords" name="keywords" required>
+            </div>
+            <button type="submit">記事生成</button>
+        </form>
+    </div>
+</body>
+</html>

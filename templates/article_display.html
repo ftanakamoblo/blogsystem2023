@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>記事表示</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="article-display-container">
+        <h1>{{ article_title }}</h1>
+        <div class="article-content">
+            {{ article_content | safe }}
+        </div>
+    </div>
+</body>
+</html>
