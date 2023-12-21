@@ -1,5 +1,5 @@
 from flask import Flask, request, abort, render_template, redirect, url_for, jsonify, flash
-from firebase_admin import firestore, initialize_app, credentials, auth
+from firebase_admin import firestore, initialize_app, credentials, auth, exceptions
 import os
 import json
 
@@ -43,10 +43,10 @@ def register():
         password = request.form.get('password')
         try:
             # Firebase Authenticationを使用して新規ユーザーを登録する
-            user = auth.create_user_with_email_and_password(email, password)
+            user = auth.create_user(email=email, password=password)
             # 登録に成功したら、ホームページにリダイレクトする
             return redirect(url_for('home'))
-        except auth.AuthError as e:
+        except exceptions.FirebaseError as e:
             # 登録に失敗した場合の処理
             flash('アカウントの作成に失敗しました。')
             return redirect(url_for('register'))
