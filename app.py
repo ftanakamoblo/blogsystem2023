@@ -21,17 +21,17 @@ def login():
     if request.method == 'GET':
         return render_template('login.html')
     elif request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
+        id_token = request.form.get('id_token')
         try:
-            # Firebase Authenticationを使用してユーザーを認証する
-            user = auth.sign_in_with_email_and_password(email, password)
+            # IDトークンを検証する
+            decoded_token = auth.verify_id_token(id_token)
+            uid = decoded_token['uid']
             # 認証に成功したら、ユーザー情報をセッションに保存するなどの処理を行う
-            # 例: session['user_id'] = user['localId']
+            # 例: session['user_id'] = uid
             return redirect(url_for('home'))
         except exceptions.FirebaseError as e:
             # 認証に失敗した場合の処理
-            flash('ログインに失敗しました。メールアドレスまたはパスワードが正しくありません。')
+            flash('ログインに失敗しました。トークンが無効か、期限切れです。')
             return redirect(url_for('login'))
 
 @app.route('/register', methods=['GET', 'POST'])
